@@ -1,4 +1,4 @@
-# 自动签到 Telegram Bot
+# PT_attendance
 
 这是一个用于自动签到并通过 Telegram 发送签到结果的 Python 脚本
 ## 运行环境
