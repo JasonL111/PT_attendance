@@ -66,11 +66,10 @@ def send_request():
     check(response)
 def check(response):
     print(response.text)
-    if(response.status_code!=200):
-        if("未登录" in response.text):
-            failed()
-    else:
+    if("已连续签到" in response.text):
         success()
+    elif():
+        failed()
 def main():
    send_request()
 if __name__=="__main__":
