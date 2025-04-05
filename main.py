@@ -1,5 +1,8 @@
 import requests
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 def success():
     TOKEN=os.getenv('TOKEN')
