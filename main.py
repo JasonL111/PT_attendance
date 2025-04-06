@@ -1,24 +1,19 @@
 import requests
 from dotenv import load_dotenv
 import os
-
+import datetime
+import re
 load_dotenv()
 
-def success():
-    TOKEN=os.getenv('TOKEN')
-    CHAT_ID=os.getenv('CHAT_ID')
-    TEXT = "🤖 签到成功"
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+def success(TOKEN, CHAT_ID,url,formatted_time,days):
+    TEXT = formatted_time+"签到成功 ✅, 连续签到"+str(days)+"天"
     payload = {
         "chat_id": CHAT_ID,
         "text": TEXT
     }
     res = requests.post(url, data=payload)
-def failed():
-    TOKEN=os.getenv('TOKEN')
-    CHAT_ID=os.getenv('CHAT_ID')
-    TEXT = "🤖 签到失败"
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+def failed(TOKEN, CHAT_ID,url,formatted_time): 
+    TEXT = formatted_time+"签到失败 🔴"    
     payload = {
         "chat_id": CHAT_ID,
         "text": TEXT
@@ -67,13 +62,24 @@ def send_request():
         headers=headers
     )
     check(response)
+
 def check(response):
+    TOKEN=os.getenv('TOKEN')
+    CHAT_ID=os.getenv('CHAT_ID')
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+    now = datetime.datetime.now()
+    formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
     print(response.text)
+    match = re.search(r"已连续签到\s*<b>(\d+)</b>\s*天", response.text)
+    if match:
+        days = int(match.group(1))  # 提取到的天数
     if("已连续签到" in response.text):
-        success()
+        success(TOKEN, CHAT_ID,url,formatted_time,days)
     else:
-        failed()
+        failed(TOKEN, CHAT_ID,url,formatted_time)
+
 def main():
-   send_request()
+    send_request()
+
 if __name__=="__main__":
     main()
