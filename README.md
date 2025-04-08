@@ -1,6 +1,10 @@
 # PT_attendance
 
 这是一个用于自动签到并通过 Telegram 发送签到结果的 Python 脚本
+
+## 语言 Language
+[English](https://github.com/JasonL111/PT_attendance/blob/main/README.en_US.md)
+
 ## 运行环境
 
 - Python 3.x
@@ -11,13 +15,15 @@
 ## 安装步骤
 
 1. 克隆或下载本仓库
-
+```bash
+git clone https://github.com/JasonL111/PT_attendance.git
+```
 2. 安装所需依赖库：
 
 ```bash
 pip install requests python-dotenv
 ```
-3. 创建一个 .env 文件，填入以下信息：
+3. 在`PT_attendance`目录下创建一个 .env 文件，填入以下信息：
 ```bash
 # Telegram Bot 相关信息
 TOKEN=your_telegram_bot_token
